@@ -1,0 +1,16 @@
+.header{
+    background: linear-gradient(90deg,#0863B8,#021194 );
+    color:white;
+    padding: 1em;
+    text-align: center;
+}
+
+.div-content{
+   
+    height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    
+}
