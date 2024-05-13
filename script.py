@@ -3,15 +3,20 @@ import os
 import numpy as np
 import flask
 import joblib
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request
 
 #creating instance of the class
 app=Flask(__name__)
 
 #to tell flask what url shoud trigger the function index()
 @app.route('/')
-@app.route('/upload-picture')
+@app.route('/home')
 def index():
+    return flask.render_template('home.html')
+
+
+@app.route('/upload-picture')
+def uploadPicture():
     return flask.render_template('upload-picture.html')
 
 
