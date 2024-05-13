@@ -4,16 +4,17 @@
     <title>Age Classifier</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
   </head>
-  <body>
+  <body class="body-upload">
     <div id="box">
       <div class="header">
         <h1>¿De qué edad parezco?</h1>
-        <h4>Descúbrelo ahora</h4>
+        <h4>Estás entre {{ prediction }}</h4>
       </div>
       <div class="div-content">
-        <button type="button">Sube una foto</button>
-        <button type="button">Abre tu cámara</button>
+        <img src="{{ url_for('static', filename=name) }}" alt="Tu foto">
+
       </div>
     </div>
-  </body>
+
+   </body>
 </html>

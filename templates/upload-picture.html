@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Age Classifier</title>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
   </head>
   <body class="body-upload">
     <div id="box">
@@ -11,15 +11,16 @@
         <h4>Descúbrelo ahora subiendo tu foto</h4>
       </div>
       <div class="div-content">
-        <form class ="form">
+        <form class ="form" action="/final-result" method="POST" enctype="multipart/form-data">
             <span class="form-icon">
                 <ion-icon name="cloud-upload-outline"></ion-icon>
             </span>
             <label for="file-input" class="drop-container">
                 <span class="drop-title">Pega aquí tu imagen</span>
                 or
-                <input type="file" id="file-input" accept="image/*" required>
+                <input type="file" id="file-input" name="file" accept="image/*" required>
             </label>
+            <input type="submit" value="Subir">
         </form>
       </div>
     </div>

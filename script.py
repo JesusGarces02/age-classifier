@@ -3,16 +3,25 @@ import os
 import numpy as np
 import flask
 import joblib
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 
 #creating instance of the class
 app=Flask(__name__)
 
 #to tell flask what url shoud trigger the function index()
 @app.route('/')
-@app.route('/index')
+@app.route('/upload-picture')
 def index():
-    return flask.render_template('index.html')
+    return flask.render_template('upload-picture.html')
+
+
+@app.route('/final-result',methods = ['POST'])
+def finalResult():
+    if request.method == 'POST':   
+        f = request.files['file'] 
+        upload_directory = os.path.join(app.root_path, 'static')
+        f.save(os.path.join(upload_directory, f.filename)) 
+        return render_template("final-result.html", name = f.filename)  
 
 def ValuePredictor(to_predict_list):
     to_predict = np.array(to_predict_list).reshape(1, 4)
