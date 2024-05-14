@@ -3,14 +3,15 @@ import os
 import numpy as np
 import flask
 import joblib
+import io
 import cv2
+import requests
 from flask import Flask, render_template, request, Response
 
 #creating instance of the class
 app=Flask(__name__)
 
-#initializing camera
-camera = cv2.VideoCapture(0)
+capture_camera = cv2.VideoCapture(0)
 streaming_camera = cv2.VideoCapture(0)
 
 #to tell flask what url shoud trigger the function index()
@@ -62,6 +63,7 @@ def getFrameCamera(camera):
 
 #function to get frames of the camera, like streaming
 def framesGenerator():
+    streaming_camera = cv2.VideoCapture(0)
     while True:
         isOk, image = getFrameCamera(streaming_camera)
         if not isOk:
@@ -70,6 +72,34 @@ def framesGenerator():
         else:
             # Regresar la imagen en modo de respuesta HTTP
             yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + image + b"\r\n"
+
+@app.route("/send_photo", methods=["GET"])
+def sendPhoto():
+    capture_camera = cv2.VideoCapture(0)
+
+    isOk, frame = getFrameCamera(capture_camera)
+
+    if not isOk:
+        ConnectionAbortedError(500)
+        return
+    
+    # Crear un archivo temporal en memoria para enviarlo como archivo adjunto
+    filename = "foto.jpg"
+    fileobj = io.BytesIO(frame)
+    files = {'file': (filename, fileobj)}
+
+    # Enviar la foto al método finalResult mediante una solicitud POST
+    url = "http://127.0.0.1:5001/final-result"  # Reemplaza "tu_servidor" con la dirección de tu servidor
+    try:
+        response = requests.post(url, files=files)
+        if response.status_code == 200:
+            capture_camera.release()
+            streaming_camera.release()
+            return render_template("final-result.html", name = filename)
+        else:
+            return f"Error al enviar la foto a finalResult(): {response.text}", 500
+    except Exception as e:
+        return f"Error al enviar la foto a finalResult(): {str(e)}", 500
 
 @app.route('/result',methods = ['POST'])
 def result():
