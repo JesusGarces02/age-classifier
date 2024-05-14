@@ -12,9 +12,19 @@
       </div>
       <div class="div-content">
         <form action="/upload-picture" method="get">
-          <button type="submit">Sube una foto</button>
+          <button class="homeButton" type="submit">
+            <div>
+              <img src="{{ url_for('static', filename='images/Upload.svg') }}" alt="Upload">
+            </div>
+            Sube una foto
+          </button>
         </form>
-        <button type="button">Abre tu cámara</button>
+        <button class="homeButton" type="button" onclick="window.location.href='/camera'">
+          <div>
+            <img src="{{ url_for('static', filename='images/Camera.svg') }}" alt="Upload">
+          </div>
+          Abre tu cámara
+        </button>
       </div>
     </div>
   </body>
