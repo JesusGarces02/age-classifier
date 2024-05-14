@@ -4,7 +4,7 @@ import numpy as np
 import flask
 import joblib
 import cv2
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 
 #creating instance of the class
 app=Flask(__name__)
@@ -22,7 +22,6 @@ def index():
 @app.route('/upload-picture')
 def uploadPicture():
     return flask.render_template('upload-picture.html')
-
 
 @app.route('/final-result',methods = ['POST'])
 def finalResult():
@@ -43,9 +42,9 @@ def camera():
     return flask.render_template("camera.html")
 
 #Ref: https://parzibyte.me/blog/2021/02/10/python-acceder-camara-web-opencv-flask/ 
-#@app.route("/streaming_camara")
-#def streaming_camara():
-    #return Response(generador_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route("/streaming_camara")
+def streaming_camara():
+    return Response(framesGenerator(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 #function to get one frame of the camera using opencv(cv2)
 def getFrameCamera():
