@@ -9,6 +9,10 @@ from flask import Flask, render_template, request, Response
 #creating instance of the class
 app=Flask(__name__)
 
+#initializing camera
+camera = cv2.VideoCapture(0)
+streaming_camera = cv2.VideoCapture(0)
+
 #to tell flask what url shoud trigger the function index()
 @app.route('/')
 @app.route('/home')
@@ -44,10 +48,7 @@ def streaming_camara():
     return Response(framesGenerator(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 #function to get one frame of the camera using opencv(cv2)
-def getFrameCamera():
-    
-    #initializing camera
-    camera = cv2.VideoCapture(0)
+def getFrameCamera(camera):
 
     isOk, frame = camera.read()
 
@@ -62,7 +63,7 @@ def getFrameCamera():
 #function to get frames of the camera, like streaming
 def framesGenerator():
     while True:
-        isOk, image = getFrameCamera()
+        isOk, image = getFrameCamera(streaming_camera)
         if not isOk:
             break
 
