@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Age Classifier</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}" />
+  </head>
+  <body>
+    <div id="box">
+      <div class="header">
+        <h1>¿De qué edad parezco?</h1>
+        <h4>Hazte en frente de tu cámara y saca una foto :)</h4>
+      </div>
+      <div class="div-content">
+        <figure class="image has-text-centered">
+          <img class="is-inline-block" src="./streaming_camara" style="width: auto">
+      </figure>
+      <form action="/send_photo" method="get">
+        <button class="homeButton" type="submit">
+          Toma una foto
+        </button>
+      </form>
+      </div>
+    </div>
+  </body>
+</html>
