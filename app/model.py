@@ -4,7 +4,7 @@ from PIL import Image
 import io
 
 def load_model():
-    # Asegúrate de que los archivos de modelo estén en la ruta correcta
+
     model = AutoModelForImageClassification.from_pretrained('model')
     model.eval()
 

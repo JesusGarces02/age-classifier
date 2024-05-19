@@ -96,7 +96,7 @@ def sendPhoto():
     files = {'file': (filename, fileobj)}
 
     # Enviar la foto al método finalResult mediante una solicitud POST
-    url = "http://127.0.0.1:5001/final-result"  # Reemplaza "tu_servidor" con la dirección de tu servidor
+    url = "http://127.0.0.1:5001/final-result"  
     try:
         response = requests.post(url, files=files)
         print('Esta es mi ${}'.format(response))
