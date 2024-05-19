@@ -1,4 +1,7 @@
 
+## Ignore the data folder
+data/
+
 venv/
 
 *.pyc
