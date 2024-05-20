@@ -10,7 +10,7 @@
         <h1>¿De qué edad parezco?</h1>
         <h4>Estás entre {{ prediction }}</h4>
       </div>
-      <div class="div-content" style="display: flex; flex-direction: column;">
+      <div class="div-content" style="display: flex; flex-direction: column; flex-wrap: nowrap; align-content: stretch; justify-content: space-evenly; align-items: center;">
         <img src="{{ url_for('static', filename='sources/' + name) }}" alt="Tu foto" style="height:100%;">
         <button class="uploadButton" type="button" onclick="window.location.href='/home'">Intenta con una nueva foto</button>
       </div>
